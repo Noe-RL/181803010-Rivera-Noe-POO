@@ -28,25 +28,56 @@
         stmt = conexion.createStatement();
         rs = stmt.executeQuery("SELECT celulares.id_celular, celulares.Nombre, celulares.Modelo, celulares.Color,celulares.id_marca,catalogomarca.Nombre FROM`celulares` JOIN catalogomarca on celulares.id_marca = catalogomarca.id_marca");
         
- 
+        
+        out.print("<table frame='box'>");
+        %>
+    <style>
+      table, td {
+        border:1px solid black;
+      }
+    </style>
+    
+<tr>
+    <th><td> <b>Nombre</b></td></th>
+    <td><b>Modelo</b></td>
+    <td><b>Color</b></td>
+    <td><b>Marca</b></td>
+</tr>
+    <%
 
-        while(rs.next()){
-            for(int i=1; i<7 ; i++){
-            out.println( "\t" + rs.getString(i)+ "\n"); 
-          }  
-        }
+ while (rs.next()) {
+                    out.println("<tr>");
+                    out.println("<td>" + rs.getString(1) + "</td>");
+                    out.println("<td>" + rs.getString(2) + "</td>");
+                    out.println("<td>" + rs.getString(3) + "</td>");
+                    out.println("<td>" + rs.getString(4) + "</td>");
+                    out.println("<td>" + rs.getString(6) + "</td>");
+                    out.println("</tr>");
+                }
+         out.print("</table>");  
        %>
-        <h1><centered> Catalogo <b>Celulares</b></centered></h1>
+        <h1><centered> Catalogo <b>MARCAS</b></centered></h1>
         
         <%
         
       
      rs = stmt.executeQuery("SELECT catalogomarca.Nombre FROM`celulares` JOIN catalogomarca on celulares.id_marca = catalogomarca.id_marca");
-            while(rs.next()){
-            for(int i=1; i<2 ; i++){
-            out.println( "\t" + rs.getString(i)+ "\n"); 
-          }  
-        }   
+  
+     out.print("<table>");
+        
+        out.print("<tr>");
+        out.print("<td> Nombre </td>");
+        out.print("</tr>");
+        
+        
+         while (rs.next()) {
+                    out.print("<tr>");
+                    
+                    out.print("<td>" + rs.getString(1) + "</td>");
+
+                    out.print("</tr>");
+                }
+         out.print("</table>><br><br>");  
     }
     
     
