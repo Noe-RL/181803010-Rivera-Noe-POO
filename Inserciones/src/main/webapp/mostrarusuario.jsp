@@ -14,16 +14,15 @@
     if (request.getParameter("id") != null) {
         id = Integer.parseInt(request.getParameter("id"));
         titulo = "Editar Usuario";
- Connection  conexionsql=null;
-    PreparedStatement stmt= null;
-    ResultSet rs = null;
+        Connection conexionsql = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         String dndword = "";
-        
 
         try {
-             Class.forName("com.mysql.jdbc.Driver");
-            conexionsql = DriverManager.getConnection("jdbc:mysql://localhost/usuarios ?serverTimezone=UTC","root","");
+            Class.forName("com.mysql.jdbc.Driver");
+            conexionsql = DriverManager.getConnection("jdbc:mysql://localhost/usuarios ?serverTimezone=UTC", "root", "");
             stmt = conexionsql.prepareStatement("SELECT * FROM usuarios WHERE id_usuario=?");
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -38,8 +37,8 @@
         }
     } else {
         id = 0;
-            
-}
+
+    }
 
 
 %>
@@ -47,6 +46,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
 <title><%=titulo%></title>
     </head>
     <body>
