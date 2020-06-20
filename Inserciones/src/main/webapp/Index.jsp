@@ -14,10 +14,10 @@
     try{
         Class.forName("com.mysql.jdbc.Driver");
         conexionsql = DriverManager.getConnection("jdbc:mysql://localhost/usuarios ?serverTimezone=UTC","root","");
-        stmt = conexionsql.prepareStatement("Select * from usuarios");
+        stmt = conexionsql.prepareStatement("SELECT * FROM usuarios");
         rs= stmt.executeQuery();
     %>    
-    }
+    
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -44,6 +44,8 @@
                 <tr><th><%=rs.getInt("id_usuario")%></th>
                     <td><%=rs.getString("usuario")%></td>
                     <td><%=rs.getString("password")%></td>
+                    <td><a class="btn btn-warning btn-block" href="mostrarusuario.jsp?id=<%=rs.getInt("id_usuario")%>">Editar Usuario</a></td>
+                    <td><a class="btn btn-danger btn-block" href="mostrarusuario.jsp">Eliminar Usuario</a></td>
                 </tr>
                 <%}%>
             </tbody>
