@@ -15,10 +15,11 @@
     try{
         Class.forName("com.mysql.jdbc.Driver");
         conexionsql=DriverManager.getConnection("jdbc:mysql://localhost/usuarios ?serverTimezone=UTC","root","");
-        stmt = conexionsql.prepareStatement("INSERT INTO usuarios SET usuario=?,password=md5(?)");//Aca son los parametros de usuario y contraseña con MD5
+        stmt = conexionsql.prepareStatement("INSERT INTO usuarios SET usuario=?, num_telefono=?,password=md5(?)");//Aca son los parametros de usuario y contraseña con MD5
         
-        stmt.setString(1, request.getParameter("usuario")); //Acá es donde en realidad se hace la inserción
-        stmt.setString(2, request.getParameter("dndword")); //acá creo que STMT es el que hace todas las acciones
+        stmt.setString(1, request.getParameter("usuario"));
+        stmt.setString(2, request.getParameter("No. Telefono"));//Acá es donde en realidad se hace la inserción
+        stmt.setString(3, request.getParameter("dndword")); //acá creo que STMT es el que hace todas las acciones
         stmt.executeUpdate();
         
         %>

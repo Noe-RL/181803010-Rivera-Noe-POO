@@ -10,12 +10,13 @@
     Connection conexionsql = null;
     PreparedStatement stmt=null;
     ResultSet rs=null;
+    int id= Integer.parseInt(request.getParameter("id"));
     
     try{
         Class.forName("com.mysql.jdbc.Driver");
         conexionsql = DriverManager.getConnection("jdbc:mysql://localhost/usuarios ?serverTimezone=UTC","root","");
-        stmt = conexionsql.prepareStatement("DELETE * FROM usuarios WHERE id_usuario=?");//Aca son los parametros de usuario y contraseña con MD5
-        stmt.setInt(1, Integer.parseInt(request.getParameter("id_usuario"))); //acá creo que STMT es el que hace todas las acciones
+        stmt = conexionsql.prepareStatement("DELETE FROM usuarios WHERE id_usuario=?");//Aca son los parametros de usuario y contraseña con MD5
+        stmt.setInt(1, id); //acá creo que STMT es el que hace todas las acciones
         stmt.executeUpdate();
         
         %>
@@ -28,7 +29,7 @@
         
         </head>
     <body>
-        <div class="alert alert-success" role="alert">
+        <div class="container">
             USUARIO ELIMINADO.
         
         <a href="Index.jsp" type="button" class="btn btn-success btn-ld">Volver al Índice</a>

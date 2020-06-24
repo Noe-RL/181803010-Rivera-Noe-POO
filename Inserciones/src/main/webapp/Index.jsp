@@ -37,6 +37,8 @@
             <th>No.</th>
             <th>Nombre</th>
             <th>Contraseña</th>
+            <th>No.Telefónico</th>
+            <th>Opciones</th>
         </tr>
             </thead>
             <tbody>
@@ -44,15 +46,17 @@
                 <tr><th><%=rs.getInt("id_usuario")%></th>
                     <td><%=rs.getString("usuario")%></td>
                     <td><%=rs.getString("password")%></td>
+                    <td><%=rs.getInt("num_telefono")%></td>
                     <td><a class="btn btn-warning btn-block" href="mostrarusuario.jsp?id=<%=rs.getInt("id_usuario")%>">Editar Usuario</a></td>
                     <td><a class="btn btn-danger btn-block" href="eliminar.jsp?id=<%=rs.getInt("id_usuario")%>">Eliminar Usuario</a></td>
+                    <td><a class="btn btn-danger" href="eliminar.jsp?id=<%=rs.getInt("id_usuario")%>">Super Delete</a></td>
+
                 </tr>
                 <%}%>
             </tbody>
         </table>
 <%}catch(SQLException e){
         out.println("Error "+ e.getMessage());
-        out.println("Error: "+ e.getMessage());
         }%>
         </div>       
         </body>

@@ -10,6 +10,7 @@
     String usuario = "";
     String idusuario = "";
     int id;
+    String phone="";
 
     if (request.getParameter("id") != null) {
         id = Integer.parseInt(request.getParameter("id"));
@@ -30,6 +31,7 @@
             rs.next(); //recibe valor
             idusuario = rs.getString("id_usuario");
             usuario = rs.getString("usuario");
+            phone=rs.getString("num_telefono");
             dndword = rs.getString("password");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -66,13 +68,16 @@
                         <h1><%=titulo%></h1> 
                     </div>
                     <div class="form-label-group">
-                        <input type="text" name="usuario" value="<%=usuario%>" class="form-control" placeholder="NombreUsuario" required/>  
                         <label>Usuario</label>
+                        <input type="text" name="usuario" value="<%=usuario%>" class="form-control" placeholder="NombreUsuario" required/> 
+                        <input type="number" name="No. Telefono" value="<%=phone%>" class="form-control" placeholder="Número telefono +52" required/>
+                        
                     </div>
                         <%if (request.getParameter("id") == null) {%>
                     <div class="form-label-group">
-                        <input type="password" name="dndword" class="form-control" required/> 
                         <label>contraseña</label>
+                        <input type="password" name="dndword" class="form-control" required/> 
+                        
                     </div>
                     <%}%>
                     <br><input type="submit" value="Enviar" class="btn btn-success btn-block"/>
