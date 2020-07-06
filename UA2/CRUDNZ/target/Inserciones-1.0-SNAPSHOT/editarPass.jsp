@@ -1,71 +1,73 @@
-<%-- 
+    <%-- 
     Document   : editarPass
     Created on : 28 jun. 2020, 17:46:29
     Author     : Light
 --%>
-
-<%@page import="java.sql.*"%>
+<%@page import="Config.*"%>
+<%@page import="Dao.*"%>
+<%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%  
-    Connection conexion = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-    
-    String Error="Se edito el registro exitosamente a la base de datos!";
-    boolean ExistError=false;
-    try{
-        Class.forName("com.mysql.jdbc.Driver");
-        conexion = DriverManager.getConnection("jdbc:mysql://localhost/usuarios ?serverTimezone=UTC", "root", "");
-        stmt = conexion.prepareStatement("SELECT id_usuario, password FROM usuarios WHERE id_usuario=? and password=md5(?)");
-        
-        stmt.setInt(1, Integer.parseInt(request.getParameter("idUsuario")));
-        stmt.setString(2, request.getParameter("oldPass"));
-        
-        rs = stmt.executeQuery();
-  
-        if(rs.next()){
-        
-            if(request.getParameter("newPass").equals(request.getParameter("newPass2"))){
-                stmt = conexion.prepareStatement("UPDATE usuarios SET password=md5(?) WHERE id_usuario=?");
-                stmt.setString(1, request.getParameter("newPass"));
-                stmt.setInt(2, Integer.parseInt(request.getParameter("idUsuario")));
-                stmt.executeUpdate();   
-            }else{
-                ExistError=true;
-                Error="Porfavor, verifica que las contraseñas nuevas coincidan";
+
+       
+        UsuarioBD usuario = new UsuarioBD();
+            boolean flag;
+            boolean check;
+            String option = "";
+            boolean Errors = false;
+            check = usuario.findpassword(new Usuario(Integer.parseInt(request.getParameter("id_usuario")), request.getParameter("oldPassword")));
+
+            if (check = true) {
+                if (request.getParameter("newPassword").equals(request.getParameter("confirmPassword"))) {
+                    usuario.ChangePassword(new Usuario(request.getParameter("newPassword"), Integer.parseInt(request.getParameter("id_usuario"))));
+                     option = " Registro completado!";
+                } else {
+                    Errors = true;
+                    option = "las contraseñas no coinciden";
+                }
+            } else {
+                Errors = true;
+                option = "Lo sentimos, el registro no pudo ser completado, las contraseñas no coinciden.";
             }
-        }else{
-            ExistError=true;
-            Error="La contraseña Actual no coincide";
-        }
+               
+
+               
+
 %>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-        <title>Formulario Usuario</title>
-    </head>
-    <body>
-        <div class="container text-center"><br>
-            
-            <%if(ExistError){   
-                out.print("<div class='alert alert-danger' role='alert'>");
-                    out.println(Error);
-                out.print("</div> "); 
-             }else{
-                out.print("<div class='alert alert-success' role='alert'>");
-                    out.println(Error);
-                out.print("</div> ");
-             }%>
-            <a href="Index.jsp" type="button" class="btn btn-success btn-lg">Volver al Index</a>
-           
+        
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Edición Contraseña</title>
+        
+        </head>
+    <body><%
+        if(Errors=true){ 
+        %>
+        
+        <div class="alert alert-danger mt-5 text-center" role="alert">
+            <% out.println(option); %>
         </div>
-    </body>
-</html>
+        
+            <div  class= "lead text-center" >
+         <a href="Index.jsp" type="button" class="btn btn-primary btn-ld">Volver al Índice</a>
+        
+      
+   </div>
+    <%}else{%>
+                 <div class="alert alert-success mt-5 text-center" role="alert">
+            <% out.println(option); %>
+        </div>
+            <div  class= "lead text-center" >
+         <a href="Index.jsp" type="button" class="btn btn-primary btn-ld">Volver al Índice</a>
+   </div><%}%>
+     </body>
 
-<%}catch(SQLException e){%>    
-    <div class="alert alert-danger" role="alert">
-        <%out.println("Error: "+e.getMessage());%>
-    </div>  
-<%}%>
+    
+    
+</html>

@@ -32,11 +32,35 @@ public class Usuario {
     }
 
     public Usuario(int id_usuario, String usuario, String password, int phone) {
-        this.usuario = usuario;
         this.id_usuario = id_usuario;
+        this.usuario = usuario;
         this.password = password;
         this.phone = phone;
     }
+
+    public Usuario(String usuario, String password, int phone) {
+        this.usuario = usuario;
+        this.password = password;
+        this.phone = phone;
+    }
+
+    public Usuario(String usuario, int phone, int id_usuario ) {
+        this.usuario = usuario;
+        this.id_usuario = id_usuario;
+        this.phone = phone;
+    }
+
+    public Usuario(int id_usuario, String password) {
+        this.id_usuario = id_usuario;
+        this.password = password;
+    }
+    
+        public Usuario( String password, int id_usuario) {
+        this.id_usuario = id_usuario;
+        this.password = password;
+    }
+    
+    
 
     public String getUsuario() {
         return usuario;

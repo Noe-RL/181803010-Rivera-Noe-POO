@@ -6,23 +6,15 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
+<%@page import="Config.*"%>
+<%@page import="Dao.*"%>
 <!DOCTYPE html>
 <%
     int id = Integer.parseInt(request.getParameter("id"));
-    Connection conexionsql = null;
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        conexionsql = DriverManager.getConnection("jdbc:mysql://localhost/usuarios ?serverTimezone=UTC", "root", "");
-        stmt = conexionsql.prepareStatement("SELECT * FROM usuarios WHERE id_usuario=?");
-        stmt.setInt(1, id);
-        rs = stmt.executeQuery();
-
-        rs.next(); //recibe valor
+    UsuarioBD usuario = new UsuarioBD();
+    usuario.find(new Usuario(id));
+    
 %>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,22 +23,15 @@
     </head>
     <body>
         <div class="container">
-            <div class="form-group">         
+            <div class="form-group text-center">         
                 <%
                     out.print("<div class='alert alert-danger' role='alert'>");
-                    out.println("¿Estas seguro de eliminar a " + rs.getString("usuario") + "?");
+                    out.println("¿Estas seguro de eliminar a este usuario?");
                     out.print("</div> ");
                 %>
 
-                <a href="Index.jsp" type="button" class="btn btn-danger btn-ld">Cancelar</a>
-                <a href="Ondelete.jsp?id=<%=rs.getInt("id_usuario")%>" type="button" class="btn btn-warning btn-lg">Eliminar</a>
+                <a href="Index.jsp" type="button" class="btn btn-primary btn-ld">Cancelar</a>
+                <a href="Ondelete.jsp?id=<%= id %>" type="button" class="btn btn-danger ">Eliminar</a>
             </div>
         </div>
     </body>
-
-    <%} catch (Exception e) {
-                System.out.println(e.getMessage());
-
-            }
-
-        %>
