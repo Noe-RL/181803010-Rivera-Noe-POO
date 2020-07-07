@@ -17,6 +17,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://kit.fontawesome.com/5c4728a2cc.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <title> Tabla Usuarios Tarea con Bootstrap4</title>
     </head>
@@ -43,10 +44,10 @@
                     <td><%=usuario.getUsuario()%></td>
                     <td><%=usuario.getPassword()%></td>
                     <td>+52 <%=usuario.getPhone()%></td>
-                    <td><a class="btn btn-outline-secondary" href="mostrarusuario.jsp?id=<%=usuario.getId_usuario()%>">👤</a>
-                    <a class="btn btn-outline-secondary" href="passwordfrontend.jsp?id=<%=usuario.getId_usuario()%>">🔑</a>
-                    <a class="btn btn-outline-warning" href="eliminar.jsp?id=<%=usuario.getId_usuario()%>">🗑</a>
-                    <a class="btn btn-danger" href="superdelete.jsp?id=<%=usuario.getId_usuario()%>">Super Delete</a></td>
+                    <td><a class="btn btn-outline-dark" href="mostrarusuario.jsp?id=<%=usuario.getId_usuario()%>"><i class="fas fa-user-edit"></i></a>
+                    <a class="btn btn-outline-dark" href="passwordfrontend.jsp?id=<%=usuario.getId_usuario()%>"><i class="fas fa-key"></i></a>
+                    <a class="btn btn-outline-danger" href="eliminar.jsp?id=<%=usuario.getId_usuario()%>"><i class="fas fa-user-minus"></i></a>
+                    <a class="btn btn-danger" href="superdelete.jsp?id=<%=usuario.getId_usuario()%>"><i class="fas fa-minus-circle"></i></a></td>
 
                 </tr>
                 <%}%>
